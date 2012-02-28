@@ -1,0 +1,15 @@
+This is a quick experiment with the API for Dropbox
+to verify that we can do what we need. Karthik (and I)
+will put together a more elegant, higher-level R interface
+later.
+
+You will need a new version of ROAuth (>= 0.91-0).
+
+See dropbox.R for examples.  Note that after you
+authorize access by the R application to Dropbox, 
+just hit Enter (or Return) when prompted for the PIN.
+Dropbox doesn't return a PIN and you don't need it.
+R and Dropbox will negotiate the authorization after
+the access has been granted.
+
+
