@@ -33,12 +33,13 @@ xx = fromJSON(cred$OAuthRequest("https://api.dropbox.com/1/search/dropbox/",
                                   list(query = "config", include_deleted = "true")))
 
 
-content = "This is simple content"       
+content = sprintf("This is simple content\n%s\n", Sys.time())
 input = RCurl:::uploadFunctionHandler(content, TRUE)
-trace(input)       
-xx = cred$OAuthRequest("https://api-content.dropbox.com/1/files_put/dropbox/up",, "PUT",
-                        upload = TRUE, readdata = input, infilesize = nchar(content) - 3L, verbose = TRUE)
-
+xx = cred$OAuthRequest("https://api-content.dropbox.com/1/files_put/dropbox/Public/up",, "PUT",
+                        upload = TRUE, readfunction = input, infilesize = nchar(content), verbose = TRUE)
+fromJSON(xx)
                
-
+val = cred$OAuthRequest("https://api-content.dropbox.com/1/files/dropbox/Public/up")
+       # Check they are the same, but get rid of attributes, i.e. Content-Type.
+identical(as.character(val), as.character(content))
 }       
