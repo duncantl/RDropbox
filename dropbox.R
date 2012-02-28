@@ -13,6 +13,8 @@ cred <- OAuthFactory$new(consumerKey = cKey, consumerSecret = cSecret,
                            authURL = authURL)
 cred$handshake(post = FALSE) 
 
+
+if(FALSE) {
 cred$OAuthRequest("https://api.dropbox.com/1/account/info")
 
 cred$OAuthRequest("https://api-content.dropbox.com/1/files/dropbox/foo")
@@ -27,8 +29,16 @@ names(ll$contents) = basename(sapply(ll$contents, `[[`, "path"))
 #names(file.info(list.files(".")))
                    
 
-
 xx = fromJSON(cred$OAuthRequest("https://api.dropbox.com/1/search/dropbox/",
-                        list(query = "config", include_deleted = "true")))
+                                  list(query = "config", include_deleted = "true")))
+
+
+content = "This is simple content"       
+input = RCurl:::uploadFunctionHandler(content, TRUE)
+trace(input)       
+xx = cred$OAuthRequest("https://api-content.dropbox.com/1/files_put/dropbox/up",, "PUT",
+                        upload = TRUE, readdata = input, infilesize = nchar(content) - 3L, verbose = TRUE)
+
                
-       
+
+}       
