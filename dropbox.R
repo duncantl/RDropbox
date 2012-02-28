@@ -42,4 +42,15 @@ fromJSON(xx)
 val = cred$OAuthRequest("https://api-content.dropbox.com/1/files/dropbox/Public/up")
        # Check they are the same, but get rid of attributes, i.e. Content-Type.
 identical(as.character(val), as.character(content))
+
+
+xx = cred$OAuthRequest("https://api.dropbox.com/1/fileops/create_folder",
+                        list(root = "dropbox", path = "NewFolder"),  "POST")
+
+xx = cred$OAuthRequest("https://api.dropbox.com/1/fileops/delete",
+                        list(root = "dropbox", path = "NewFolder"),  "POST")
+
+xx = cred$OAuthRequest("https://api.dropbox.com/1/fileops/move",
+                        list(root = "dropbox", from_path = "Public/up", to_path = "Public/down"),  "POST")              
+       
 }       
